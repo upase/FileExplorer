@@ -25,7 +25,7 @@ public class Database extends AppCompatActivity {
 
         mydb = new DBHelper(this);
         ArrayList array_list = mydb.getAllCotacts();
-
+//this as an adapter
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
 
         obj = (ListView)findViewById(R.id.listView1);
