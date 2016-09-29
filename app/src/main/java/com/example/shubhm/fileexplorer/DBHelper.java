@@ -61,12 +61,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public int numberOfRows(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, CONTACTS_TABLE_NAME);
-        return numRows;
-    }
-
     public boolean updateContact (Integer id, String name, String phone, String email, String street,String place)
     {
         SQLiteDatabase db = this.getWritableDatabase();
