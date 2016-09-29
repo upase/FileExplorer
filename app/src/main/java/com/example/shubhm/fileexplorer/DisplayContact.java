@@ -166,24 +166,34 @@ public class DisplayContact extends Activity {
 
     }
 
-    public void run(View view)
-    {
+    public void run(View view) {
         Bundle extras = getIntent().getExtras();
         if(extras !=null)
         {
             int Value = extras.getInt("id");
-            if(Value>0) {
-                optiona();
-            }
+            if(Value>0){
+                if(mydb.updateContact(id_To_Update,name.getText().toString(), phone.getText().toString(), email.getText().toString(), street.getText().toString(), place.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(),Database.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
-            optionb();
+                if(mydb.insertContact(name.getText().toString(), phone.getText().toString(), email.getText().toString(), street.getText().toString(), place.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
                 }
 
+                else{
+                    Toast.makeText(getApplicationContext(), "not done", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent(getApplicationContext(),Database.class);
                 startActivity(intent);
             }
-
+        }
+    }
 
     @Override
     public void onAttachedToWindow() {

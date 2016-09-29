@@ -14,7 +14,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class Database extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "MESSAGE";
     private ListView obj;
     DBHelper mydb;
     @Override
