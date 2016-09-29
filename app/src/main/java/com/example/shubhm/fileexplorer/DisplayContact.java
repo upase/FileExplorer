@@ -197,5 +197,9 @@ public class DisplayContact extends Activity {
         openOptionsMenu();
     };
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(getApplicationContext(),Database.class);
+        startActivity(i);    }
 }

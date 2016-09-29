@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -219,5 +220,11 @@ public class MainActivity extends AppCompatActivity
         flag=0;
         {Toast.makeText(this,"Please Touch Top Left Corner For\n\t\t\t Navigation Drawer",Toast.LENGTH_LONG).show();}
         super.onResume();
+    }
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        if (keycode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+        }
+        return super.onKeyDown(keycode, event);
     }
 }

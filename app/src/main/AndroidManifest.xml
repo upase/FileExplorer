@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Database" android:screenOrientation="portrait" />
-        <activity android:name=".DisplayContact" android:screenOrientation="portrait" />
+        <activity android:name=".Database" android:screenOrientation="portrait" android:noHistory="true" />
+        <activity android:name=".DisplayContact" android:screenOrientation="portrait" android:noHistory="true"    />
         <activity android:name=".shared" android:screenOrientation="portrait"></activity>
     </application>
 

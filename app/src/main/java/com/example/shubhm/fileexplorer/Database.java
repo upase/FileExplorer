@@ -39,12 +39,16 @@ public class Database extends AppCompatActivity {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", id_To_Search);
 
-                Intent intent = new Intent(getApplicationContext(),DisplayContact.class);
-
-                intent.putExtras(dataBundle);
-                startActivity(intent);
+                myintent(dataBundle);
             }
         });
+    }
+
+    private void myintent(Bundle dataBundle) {
+        Intent intent = new Intent(getApplicationContext(),DisplayContact.class);
+
+        intent.putExtras(dataBundle);
+        startActivity(intent);
     }
 
     @Override
@@ -61,17 +65,29 @@ public class Database extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.item1:Bundle dataBundle = new Bundle();
-                dataBundle.putInt("id", 0);
-
-                Intent intent = new Intent(getApplicationContext(),DisplayContact.class);
-                intent.putExtras(dataBundle);
-
-                startActivity(intent);
-                return true;
+               return optiona(dataBundle);
             default:
-                return super.onOptionsItemSelected(item);
+                return optionb(item);
         }
     }
 
+    private boolean optionb(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 
+    private boolean optiona(Bundle dataBundle) {
+        dataBundle.putInt("id", 0);
+
+        Intent intent = new Intent(getApplicationContext(),DisplayContact.class);
+        intent.putExtras(dataBundle);
+
+        startActivity(intent);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(i);
+    }
 }

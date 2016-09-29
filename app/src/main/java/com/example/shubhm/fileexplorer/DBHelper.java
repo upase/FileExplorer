@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "MyDBName.db";
-    public static final String CONTACTS_TABLE_NAME = "contacts";
+    public static final String CONTACTS_TABLE_NAME = "mydatabase";
     public static final String CONTACTS_COLUMN_ID = "id";
     public static final String CONTACTS_COLUMN_NAME = "name";
     public static final String CONTACTS_COLUMN_EMAIL = "email";
@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
         db.execSQL(
-                "create table contacts " +
+                "create table mydatabase " +
                         "(id integer primary key, name text,phone text,email text, street text,place text)"
         );
     }
@@ -38,26 +38,26 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS contacts");
+        db.execSQL("DROP TABLE IF EXISTS mydatabase");
         onCreate(db);
     }
 
     public boolean insertContact  (String name, String phone, String email, String street,String place)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", phone);
-        contentValues.put("email", email);
-        contentValues.put("street", street);
-        contentValues.put("place", place);
-        db.insert("contacts", null, contentValues);
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("phone", phone);
+        cv.put("email", email);
+        cv.put("street", street);
+        cv.put("place", place);
+        db.insert("mydatabase", null, cv);
         return true;
     }
 
     public Cursor getData(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from mydatabase where id="+id+"", null );
         return res;
     }
 
@@ -70,20 +70,20 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean updateContact (Integer id, String name, String phone, String email, String street,String place)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", phone);
-        contentValues.put("email", email);
-        contentValues.put("street", street);
-        contentValues.put("place", place);
-        db.update("contacts", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("phone", phone);
+        cv.put("email", email);
+        cv.put("street", street);
+        cv.put("place", place);
+        db.update("mydatabase", cv, "id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
 
     public Integer deleteContact (Integer id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("contacts",
+        return db.delete("mydatabase",
                 "id = ? ",
                 new String[] { Integer.toString(id) });
     }
@@ -94,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from contacts", null );
+        Cursor res =  db.rawQuery( "select * from mydatabase", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
