@@ -13,7 +13,7 @@
     >
 
 
-    <LinearLayout android:layout_height="100dp" android:layout_width="match_parent" android:gravity="top"
+    <LinearLayout android:layout_height="20dp" android:layout_width="match_parent" android:gravity="top"
 
         android:weightSum="1"
         android:layout_alignParentTop="true"
@@ -30,24 +30,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:weightSum="1">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="File Name"
-                android:id="@+id/textView2"
-                android:layout_weight="0.01" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/editText11"
-                android:layout_weight="0.13" />
-
-        </LinearLayout>
+        android:weightSum="1"
+        android:id="@+id/linearLayout2">
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="100dp"
             android:orientation="horizontal">
@@ -70,7 +54,9 @@
 
         </LinearLayout>
         <LinearLayout android:layout_height="100dp" android:layout_width="268dp" android:gravity="right"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="16.03"
+            android:weightSum="1">
 
 
             <RadioGroup
@@ -104,9 +90,46 @@
                 android:text="Save"
                 android:id="@+id/button5"
                 android:textSize="25dp" />
+
+            <Button
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:text="RESET"
+                android:id="@+id/button12"
+                android:textSize="25dp" />
+
+            <Button
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:text="SHOW"
+                android:id="@+id/button13"
+                android:textSize="25dp"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_alignParentStart="true" />
         </LinearLayout>
 
 
         </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="File Name"
+            android:id="@+id/textView2"
+            android:layout_weight="0.01" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText11"
+            android:layout_weight="0.13" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

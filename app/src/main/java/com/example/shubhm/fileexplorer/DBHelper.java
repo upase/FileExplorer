@@ -43,13 +43,19 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv=getContent(name,phone,email,street,place);
+        db.insert("mydatabase", null, cv);
+        return true;
+    }
+
+    private ContentValues getContent(String name, String phone, String email, String street,String place) {
+        ContentValues cv = new ContentValues();
         cv.put("name", name);
         cv.put("phone", phone);
         cv.put("email", email);
         cv.put("street", street);
         cv.put("place", place);
-        db.insert("mydatabase", null, cv);
-        return true;
+        return cv;
     }
 
     public Cursor getData(int id){
@@ -62,11 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name", name);
-        cv.put("phone", phone);
-        cv.put("email", email);
-        cv.put("street", street);
-        cv.put("place", place);
+        cv=getContent(name,phone,email,street,place);
         db.update("mydatabase", cv, "id = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
@@ -74,9 +76,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Integer deleteContact (Integer id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("mydatabase",
-                "id = ? ",
-                new String[] { Integer.toString(id) });
+        return db.delete("mydatabase","id = ? ",new String[] { Integer.toString(id) });
     }
 
     public ArrayList<String> getAllCotacts()

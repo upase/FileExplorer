@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class shared extends AppCompatActivity {
     EditText e1,e2,e3;
-    Button b1,b2;
+    Button b1,b2,b3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,17 +23,26 @@ public class shared extends AppCompatActivity {
 
         b1=(Button) findViewById(R.id.button8);
         b2=(Button) findViewById(R.id.button9);
+        b3=(Button) findViewById(R.id.button10);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sf=shared.this.getSharedPreferences(getString(R.string.PREF_FILE), Context.MODE_PRIVATE);
+                SharedPreferences sf=shared.this.getSharedPreferences("myfile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=sf.edit();
-                editor.putString(getString(R.string.NAME),e1.getText().toString());
-                editor.putString(getString(R.string.ROLL),e2.getText().toString());
-                editor.putString(getString(R.string.SEM),e3.getText().toString());
+                editor.putString("uname",e1.getText().toString());
+                editor.putString("roll",e2.getText().toString());
+                editor.putString("sem",e3.getText().toString());
+                editor.commit();
                 Toast.makeText(getApplicationContext(),"Data Saved",Toast.LENGTH_SHORT).show();
+
+
             }
+
+
+
+
+
         });
 
         b2.setOnClickListener(new View.OnClickListener() {
@@ -44,5 +53,20 @@ public class shared extends AppCompatActivity {
                 e3.setText("");
             }
         });
+
+        b3.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            SharedPreferences userDetails = getSharedPreferences("myfile", Context.MODE_PRIVATE);
+            String name = userDetails.getString("uname", "");
+            String roll = userDetails.getString("roll", "");
+            String sem = userDetails.getString("sem", "");
+            Toast.makeText(getApplicationContext(),name+"\t"+roll+"\t"+sem,Toast.LENGTH_SHORT).show();
+
+        }
+    });
+
     }
+
 }

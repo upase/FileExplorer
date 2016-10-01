@@ -23,9 +23,12 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -33,7 +36,7 @@ import java.io.PrintWriter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button b1;
+    Button b1,b2,b3;
     EditText e1,e2;
     RadioButton r1,r2;
     public static int flag=0;
@@ -80,6 +83,8 @@ public class MainActivity extends AppCompatActivity
 
 
         b1=(Button) findViewById(R.id.button5);
+        b2=(Button) findViewById(R.id.button12);
+        b3=(Button) findViewById(R.id.button13);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +112,72 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
 
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            e1.setText("");e2.setText("");
+            }
+        });
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(r2.isChecked()) {
+                    int ch;
+                    StringBuffer fileContent = new StringBuffer("");
+                    FileInputStream fis;
+                    try {
+                        fis = context.openFileInput(e1.getText().toString());
+                        try {
+                            while ((ch = fis.read()) != -1)
+                                fileContent.append((char) ch);
+
+                            String data = new String(fileContent);
+                            e2.setText(data);
+                            Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (FileNotFoundException e) {
+                        Toast.makeText(getApplicationContext(), "No such File Found", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else if(r1.isChecked())
+                {
+                    File sdcard = Environment.getExternalStorageDirectory();
+                    File dir = new File(sdcard.getAbsolutePath());
+                    dir.mkdir();
+                    int ch;
+                    StringBuilder fileContent = new StringBuilder();
+                    //FileInputStream fis;
+                    try {
+                       // fis = context.openFileInput(dir+ File.separator +e1.getText().toString());
+
+                        File file = new File(sdcard,e1.getText().toString());
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+
+                        try {
+                            String line;
+
+                            while ((line = br.readLine()) != null) {
+                                fileContent.append(line);
+                            }
+                            br.close();
+
+                            String data =fileContent.toString();
+                            e2.setText(data);
+                            Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (FileNotFoundException e) {
+                        Toast.makeText(getApplicationContext(), "No such File Found", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
@@ -176,11 +247,8 @@ public class MainActivity extends AppCompatActivity
     private void writeToSDFile(){
         try {
             File sdcard = Environment.getExternalStorageDirectory();
-// to this path add a new directory path
             File dir = new File(sdcard.getAbsolutePath());
-// create this directory if not already created
             dir.mkdir();
-// create the file in which we will write the contents
             File file = new File(dir,e1.getText().toString() );
             FileOutputStream os = new FileOutputStream(file);
             String data =e2.getText().toString();
@@ -196,11 +264,9 @@ public class MainActivity extends AppCompatActivity
 
 
     public boolean canWriteOnExternalStorage() {
-        // get the state of your external storage
         try {
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
-                // if storage is mounted return true
                 return true;
             }
         }
